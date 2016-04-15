@@ -29,6 +29,7 @@ app.use(allowCrossDomain);
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(bodyParser.json());
 
 // All our routes will start with /api
 //app.use('/api', router);
@@ -192,7 +193,7 @@ userIdRoute.put(function(req, res) {
 userIdRoute.delete(function(req, res) {
     User.findByIdAndRemove(req.params.id, function(err,data) {
         if (err){
-            res.status(500);
+            res.status(404);
             res.send(err);
         }
         if(data===null){
