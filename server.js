@@ -26,9 +26,9 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 // Use the body-parser package in our application
-//app.use(bodyParser.urlencoded({
-//  extended: true
-//}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 
 // All our routes will start with /api
@@ -193,7 +193,7 @@ userIdRoute.put(function(req, res) {
 userIdRoute.delete(function(req, res) {
     User.findByIdAndRemove(req.params.id, function(err,data) {
         if (err){
-            res.status(404);
+            res.status(500);
             res.send(err);
         }
         if(data===null){
