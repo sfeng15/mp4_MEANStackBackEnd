@@ -118,11 +118,11 @@ usersRoute.post(function(req, res) {
 
   //?using where to same emails
 
-  var where={ email : user.email};
+  var where={ "email" : user.email};
   User.find(where)
       .exec(function (err, users) {
         if (err){
-            res.status(500);
+            res.status(201);
             res.json({ message:"error", data:[] });
             return;
         }
@@ -131,7 +131,7 @@ usersRoute.post(function(req, res) {
         if(users==null){//? 201
           user.save(function(err) {
             if (err){
-                res.status(500);
+                res.status(201);
                 res.json({ message:"error", data:[] });
                 return;
             }
@@ -140,7 +140,7 @@ usersRoute.post(function(req, res) {
           });
         }
           else{
-            res.status(500);
+            res.status(201);
             res.json({ message:"already exist user", data:[] });
 
         }
