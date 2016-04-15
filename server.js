@@ -20,8 +20,8 @@ var port = process.env.PORT || 4000;
 var allowCrossDomain = function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
-
-  next();
+    res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+    next();
 };
 app.use(allowCrossDomain);
 
@@ -101,8 +101,8 @@ usersRoute.get(function(req, res) {
   }
 });
 usersRoute.options(function(req, res){
-  res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-  //?res.writeHead(200);
+  //res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+  res.writeHead(200);
   res.end();
 });
 usersRoute.post(function(req, res) {
@@ -250,7 +250,7 @@ tasksRoute.get(function(req, res) {
 });
 tasksRoute.options(function(req, res){
   //???res.header("Access-Control-Allow-Origin", "PUT,...");
-  //do not use res.writeHead(200);
+  res.writeHead(200);
   res.end();
 });
 tasksRoute.post(function(req, res) {
