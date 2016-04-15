@@ -20,6 +20,7 @@ var port = process.env.PORT || 4000;
 var allowCrossDomain = function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
+
   next();
 };
 app.use(allowCrossDomain);
@@ -150,7 +151,12 @@ var userIdRoute = router.route('/users/:id');
 userIdRoute.get(function(req, res) {
    User.findById(req.params.id,function(err, user) {
      if (err){
-         res.status(404);
+         if(!user){
+             res.status(404);
+         }
+         else{
+             res.status(500);
+         }
          res.send(err);
      }//?append not found 404 error
     res.status(200);
@@ -179,7 +185,9 @@ userIdRoute.put(function(req, res) {
 userIdRoute.delete(function(req, res) {
     User.findByIdAndRemove(req.params.id, function(err) {
         if (err){
-            res.status(404);
+            if(err.name==null)
+                res.status(404);
+            else res.status(500);
             res.send(err);
         }
         res.status(200);
