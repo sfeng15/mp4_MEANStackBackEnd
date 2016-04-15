@@ -118,24 +118,31 @@ usersRoute.post(function(req, res) {
 
   //?using where to same emails
 
-  var where=user.email;
+  var where={ email : user.email};
   User.find(where)
       .exec(function (err, users) {
         if (err){
-            res.status(404);
+            res.status(500);
             res.json({ message:"error", data:[] });
+            return;
         }
 
         console.log(users);
         if(users==null){//? 201
           user.save(function(err) {
             if (err){
-                res.status(404);
+                res.status(500);
                 res.json({ message:"error", data:[] });
+                return;
             }
             res.status(201);
             res.json({ message:"user added to database", data:user });
           });
+        }
+          else{
+            res.status(500);
+            res.json({ message:"already exist user", data:[] });
+
         }
       });
 
