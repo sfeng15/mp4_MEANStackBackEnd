@@ -128,15 +128,15 @@ usersRoute.post(function(req, res) {
         }
 
         console.log(users);
-        if(users==null){//? 201
-          user.save(function(err) {
+        if(users.length===0){//? 201
+          user.save(function(err,data) {
             if (err){
                 res.status(201);
                 res.json({ message:"error", data:[] });
                 return;
             }
             res.status(201);
-            res.json({ message:"user added to database", data:user });
+            res.json({ message:"user added to database", data:data });
           });
         }
           else{
