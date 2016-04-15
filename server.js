@@ -111,7 +111,7 @@ usersRoute.post(function(req, res) {
 
   user.name = req.body.name;
   user.email= req.body.email;
-  user.pendingTasks= req.body.pendingTasks;
+  user.pendingTasks= [];
 
   var date=new Date();
   user.dateCreated=date;
@@ -123,23 +123,22 @@ usersRoute.post(function(req, res) {
       .exec(function (err, users) {
         if (err){
             res.status(404);
-            res.send(err);
+            res.json({ message:"error", data:[] });
         }
 
         console.log(users);
-        if(users!=null){//? 201
+        if(users==null){//? 201
           user.save(function(err) {
             if (err){
-                res.send(err);
+                res.status(404);
+                res.json({ message:"error", data:[] });
             }
             res.status(201);
             res.json({ message:"user added to database", data:user });
           });
         }
       });
-
-
-
+    
 
 });
 
