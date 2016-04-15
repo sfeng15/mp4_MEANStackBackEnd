@@ -2,19 +2,23 @@
 var mongoose = require('mongoose');
 
 // Define our beer schema
-var UsersSchema   = new mongoose.Schema({
-  name: {
-    type:'String',
-    required:true
-  },
-  email:  {
-    type:'String',
-    required:true,
-    unique: true
-  },
+var UsersSchema   = {
+  //name: {
+  //  type:'String',
+  //  required:true
+  //},
+  //email:  {
+  //  type:'String',
+  //  required:true,
+  //  unique: true
+  //},
+  name:String,
+  email:String,
   pendingTasks: [String],
   dateCreated: Date
-});
+};
 
 // Export the Mongoose model
-module.exports = mongoose.model('User', UsersSchema);
+var Use = mongoose.model("User",UsersSchema);
+
+module.exports = Use;
